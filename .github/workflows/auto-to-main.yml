@@ -16,5 +16,5 @@ jobs:
         run: |
           git config --global user.name "automatico"
           git config --global user.email "automatico@teste.com"
-          git remote add backup https://$GH_PAT@github.com/brenhe/infrapdv2.git
+          git remote add backup https://brenhe:$GH_PAT@github.com/brenhe/infrapdv2.git
           git push backup main
