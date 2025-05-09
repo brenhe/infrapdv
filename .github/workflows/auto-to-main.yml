@@ -1,0 +1,20 @@
+name: Automatico main to main
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  push automatico main-to-main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Push to backup repo
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git config --global user.name "automatico"
+          git config --global user.email "automatico@teste.com"
+          git remote add backup https://$GH_PAT@github.com/brenhe/infrapdv2.git
+          git push backup main
