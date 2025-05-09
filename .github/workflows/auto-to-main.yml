@@ -5,13 +5,17 @@ on:
     branches: [main]
 
 jobs:
-  push_automatico_main-to-main:
+  push_automatico_main_to_main:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Push to backup repo
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "automate"
-          git remote add backup https://brenhe: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@github.com/brenhe/infrapdv2.git
+          git config user.email "automate@teste.com"
+          git remote add backup https://x-access-token:${GH_PAT}@github.com/brenhe/infrapdv2.git
           git push backup main
