@@ -11,9 +11,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Push to backup repo
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "automatico"
-          git remote add backup https://brenhe:$GH_PAT@github.com/brenhe/infrapdv2.git
+          git remote add backup https://brenhe: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@github.com/brenhe/infrapdv2.git
           git push backup main
