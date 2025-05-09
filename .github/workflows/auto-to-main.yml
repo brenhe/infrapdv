@@ -12,5 +12,6 @@ jobs:
 
       - name: Push to backup repo
         run: |
-          git remote add backup https://brenhe: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@github.com/brenhe/infrapdv2.git
+          git config user.name "automate"
+          git remote add backup https://github.com/brenhe/infrapdv2.git
           git push backup main
