@@ -16,6 +16,5 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "automate"
-          git config user.email "automate@teste.com"
           git remote add backup https://x-access-token:${GH_PAT}@github.com/brenhe/infrapdv2.git
           git push backup main
