@@ -20,8 +20,18 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_ed25519
 
-      - name: Push to backup repo
+      - name: Push only selected files to backup repo
         run: |
-          git remote add backup git@github.com:brenhe/infrapdv2.git
-          git push backup main --force
+          mkdir temp-backup
+          shopt -s extglob
+          cp -r !(.git|.github) temp-backup/
 
+          cd temp-backup
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git remote add backup git@github.com:brenhe/infrapdv2.git
+          git checkout -b main
+          git add .
+          git commit -m "Backup sem .github/workflows"
+          git push --force backup main
