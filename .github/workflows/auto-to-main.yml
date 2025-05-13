@@ -13,5 +13,7 @@ jobs:
 
       - name: Push to backup repo
         run: |
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_ed25519
           git remote add backup git@github.com:brenhe/infrapdv2.git
           git push backup main
