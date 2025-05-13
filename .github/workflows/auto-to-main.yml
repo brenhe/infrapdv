@@ -11,11 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Push to backup repo
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          ssh-keygen -t ed25519 -C "automate@teste.com" -f ~/.ssh/id_ed25519 -N ""
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_ed25519
+
+      - name: Push to backup repo
+        run: |
           git remote add backup git@github.com:brenhe/infrapdv2.git
           git push backup main
+
