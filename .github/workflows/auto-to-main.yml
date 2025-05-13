@@ -23,8 +23,7 @@ jobs:
       - name: Push only selected files to backup repo
         run: |
           mkdir temp-backup
-          shopt -s extglob
-          cp -r !(.git|.github) temp-backup/
+          rsync -av --exclude='.git' --exclude='.github' ./ temp-backup/
 
           cd temp-backup
           git init
