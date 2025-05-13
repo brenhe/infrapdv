@@ -15,5 +15,5 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-          git remote add backup https://x-access-token:${GH_PAT}@github.com/brenhe/infrapdv2.git
+          git git remote add backup git@github.com:brenhe/infrapdv2.git
           git push backup main
