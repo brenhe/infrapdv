@@ -23,5 +23,5 @@ jobs:
       - name: Push to backup repo
         run: |
           git remote add backup git@github.com:brenhe/infrapdv2.git
-          git push backup main
+          git push backup main --force
 
