@@ -1,7 +1,7 @@
 FROM node:18-slim
 
 # Define o diretório de trabalho dentro do container
-WORKDIR /infrapdv
+WORKDIR /INFRAPDV
 
 # Copia apenas os arquivos de dependências
 COPY package.json package-lock.json ./
@@ -13,7 +13,7 @@ RUN npm install --production
 COPY . .
 
 # Expõe a porta que a aplicação usa
-EXPOSE 3001
+EXPOSE 3005
 
 # Comando para iniciar a aplicação
 CMD ["node", "app.js"]
