@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
       <title>Integração Funcional!!</title>
       <head>
       Deploy Automatizado com ARGOCD🚀🚀🚀
-      <br>APLICAÇÃO TESTE HEALTH CHECK🚀🚀🚀🚀
+      <br>APLICAÇÃO TESTE HEALTH CHECK!!🚀🚀🚀🚀
       </head>
     <body>
         <script>
