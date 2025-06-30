@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Deployment
 metadata:
   name: clone
-  namespace: names-pdv
+  namespace: clone
 spec:
   replicas: 1
   selector:
