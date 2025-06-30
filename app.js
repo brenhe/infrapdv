@@ -17,16 +17,13 @@ app.get('/', (req, res) => {
       <title>Integração Funcional!!</title>
       <head>
       Deploy Automatizado com ARGOCD🚀🚀🚀
-      <br>APLICAÇÃO TESTE HEALTH CHECK!!testeeeeeee🚀🚀🚀🚀
+      <br>APLICAÇÃO TESTE HEALTH CHECK!!🚀🚀🚀🚀
       </head>
     <body>
         <script>
         alert("🚀🚀🚀🚀🚀🚀")
         </script>
       </body>
-      <footer>
-      Footer da page!!
-      </footer>
     </html>`;
     res.send(homePageHTML);
      });
