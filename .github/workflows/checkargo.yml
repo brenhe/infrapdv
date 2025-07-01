@@ -1,6 +1,7 @@
 name: Check Commit ARGO
 
-workflow_dispatch:
+on:
+  workflow_dispatch:
 
 jobs:
   check-argocd-commit:
