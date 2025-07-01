@@ -1,3 +1,7 @@
+name: Check Commit ARGO
+
+workflow_dispatch:
+
 jobs:
   check-argocd-commit:
     runs-on: self-hosted
