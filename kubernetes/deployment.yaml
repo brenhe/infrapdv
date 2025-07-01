@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: clone
-          image: "brenhe/hello-world-api:768c8b1c96abdd48ab619aea05dd348c0497254a"
+          image: "brenhe/hello-world-api:beebd3ebc445eb69973045d892841c74a5a84da8"
           ports:
             - containerPort: 3005
