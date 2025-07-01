@@ -1,48 +1,31 @@
-name: Check Commit ARGOCD
-
-on:
-  workflow_dispatch:
-
 jobs:
   check-argocd-commit:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Obter hash do commit atual do GitHub
-        id: get-git-hash
-        run: echo "hash_github=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-
-      - name: Instalar Argo CD CLI
-        run: |
-          curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          chmod +x argocd
-          sudo mv argocd /usr/local/bin/
-
-      - name: Fazer login no Argo CD
+      - name: Login no ArgoCD
         env:
-          ARGOCD_SERVER: https://localhost:8080
+          ARGOCD_SERVER: localhost:8080
           ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME }}
           ARGOCD_PASSWORD: ${{ secrets.ARGOCD_PASSWORD }}
         run: |
-          argocd login $ARGOCD_SERVER \
-            --username $ARGOCD_USERNAME \
-            --password $ARGOCD_PASSWORD \
-            --insecure
+          & "C:\Program Files (x86)\ArgoCD\argocd.exe" login $env:ARGOCD_SERVER --username $env:ARGOCD_USERNAME --password $env:ARGOCD_PASSWORD --insecure
+        shell: powershell
 
-      - name: Obter hash do commit no Argo CD e comparar
+      - name: Obter hash do commit no ArgoCD e comparar
         env:
           ARGOCD_APP_NAME: clone
+          GITHUB_HASH: ${{ github.sha }}
         run: |
-          hash_argocd=$(argocd app get $ARGOCD_APP_NAME -o json | jq -r '.status.sync.revision')
-          echo "Commit no ArgoCD: $hash_argocd"
-          echo "Commit no GitHub: ${{ steps.get-git-hash.outputs.hash_github }}"
-
-          if [ "$hash_argocd" = "${{ steps.get-git-hash.outputs.hash_github }}" ]; then
-            echo "✅ Commits estão sincronizados!"
-          else
-            echo "❌ Hash diferente! O ArgoCD ainda não aplicou o commit mais recente."
+          $hash_argocd = & "C:\Program Files (x86)\ArgoCD\argocd.exe" app get $env:ARGOCD_APP_NAME -o json | ConvertFrom-Json | Select-Object -ExpandProperty status | Select-Object -ExpandProperty sync | Select-Object -ExpandProperty revision
+          Write-Host "Commit no ArgoCD: $hash_argocd"
+          Write-Host "Commit no GitHub: $env:GITHUB_HASH"
+          if ($hash_argocd -eq $env:GITHUB_HASH) {
+            Write-Host "✅ Commits estão sincronizados!"
+          } else {
+            Write-Error "❌ Hash diferente! O ArgoCD ainda não aplicou o commit mais recente."
             exit 1
-          fi
+          }
+        shell: powershell
