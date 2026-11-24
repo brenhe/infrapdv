@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: GB-local
+    runs-on: self-hosted
 
     env:
       IMAGE_NAME: brenhe/hello-world-api  #imagem no docker hub
