@@ -16,7 +16,7 @@ jobs:
           ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME }}
           ARGOCD_PASSWORD: ${{ secrets.ARGOCD_PASSWORD }}
         run: |
-          & "C:\Program Files (x86)\ArgoCD\argocd.exe" login $env:ARGOCD_SERVER --username $env:ARGOCD_USERNAME --password $env:ARGOCD_PASSWORD --insecure
+          argocd login $env:ARGOCD_SERVER --username $env:ARGOCD_USERNAME --password $env:ARGOCD_PASSWORD --insecure
         shell: powershell
 
       - name: Obter hash do commit no ArgoCD e comparar
@@ -24,7 +24,7 @@ jobs:
           ARGOCD_APP_NAME: clone
           GITHUB_HASH: ${{ github.sha }}
         run: |
-          $hash_argocd = & "C:\Program Files (x86)\ArgoCD\argocd.exe" app get $env:ARGOCD_APP_NAME -o json | ConvertFrom-Json | Select-Object -ExpandProperty status | Select-Object -ExpandProperty sync | Select-Object -ExpandProperty revision
+          $hash_argocd = argocd app get $env:ARGOCD_APP_NAME -o json | ConvertFrom-Json | Select-Object -ExpandProperty status | Select-Object -ExpandProperty sync | Select-Object -ExpandProperty revision
           Write-Host "Commit no ArgoCD: $hash_argocd"
           Write-Host "Commit no GitHub: $env:GITHUB_HASH"
           if ($hash_argocd -eq $env:GITHUB_HASH) {
